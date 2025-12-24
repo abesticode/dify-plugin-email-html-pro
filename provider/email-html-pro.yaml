@@ -1,0 +1,145 @@
+identity:
+  author: abesticode
+  name: email_html_pro
+  label:
+    en_US: Email HTML Pro
+    zh_Hans: 专业HTML邮件
+    pt_BR: Email HTML Pro
+    ja_JP: Eメール HTML Pro
+  description:
+    en_US: Send professional HTML emails via SMTP with support for attachments, HTML content, and raw HTML templates
+    zh_Hans: 通过SMTP发送专业HTML邮件，支持附件、HTML内容和原始HTML模板
+    pt_BR: Envie e-mails HTML profissionais via SMTP com suporte para anexos, conteúdo HTML e modelos HTML brutos
+    ja_JP: 添付ファイル、HTMLコンテンツ、生のHTMLテンプレートをサポートするSMTP経由でプロフェッショナルなHTMLメールを送信します
+  icon: icon.svg
+  tags:
+    - utilities
+credentials_for_provider:
+  smtp_server:
+    type: text-input
+    required: true
+    label:
+      en_US: SMTP Server
+      zh_Hans: SMTP服务器地址
+      pt_BR: Servidor SMTP
+      ja_JP: SMTPサーバー
+    placeholder:
+      en_US: smtp.example.com
+      zh_Hans: smtp.example.com
+      pt_BR: smtp.example.com
+      ja_JP: smtp.example.com
+    help:
+      en_US: SMTP server address (e.g., smtp.gmail.com, email-smtp.us-east-1.amazonaws.com)
+      zh_Hans: SMTP服务器地址（例如：smtp.gmail.com、email-smtp.us-east-1.amazonaws.com）
+      pt_BR: Endereço do servidor SMTP (ex., smtp.gmail.com, email-smtp.us-east-1.amazonaws.com)
+      ja_JP: SMTPサーバーアドレス（例：smtp.gmail.com、email-smtp.us-east-1.amazonaws.com）
+  smtp_port:
+    type: text-input
+    required: true
+    label:
+      en_US: SMTP Port
+      zh_Hans: SMTP端口
+      pt_BR: Porta SMTP
+      ja_JP: SMTPポート
+    placeholder:
+      en_US: "587"
+      zh_Hans: "587"
+      pt_BR: "587"
+      ja_JP: "587"
+    help:
+      en_US: SMTP server port (common ports are 25, 465, 587)
+      zh_Hans: SMTP服务器端口（常用端口：25、465、587）
+      pt_BR: Porta do servidor SMTP (portas comuns são 25, 465, 587)
+      ja_JP: SMTPサーバーポート（一般的なポートは25、465、587）
+  email_account:
+    type: text-input
+    required: true
+    label:
+      en_US: Email Account
+      zh_Hans: 邮件账号
+      pt_BR: Conta de E-mail
+      ja_JP: メールアカウント
+    placeholder:
+      en_US: your-email@example.com
+      zh_Hans: your-email@example.com
+      pt_BR: your-email@example.com
+      ja_JP: your-email@example.com
+    help:
+      en_US: Email account used for SMTP authentication
+      zh_Hans: 用于SMTP认证的邮件账号
+      pt_BR: Conta de e-mail usada para autenticação SMTP
+      ja_JP: SMTP認証に使用するメールアカウント
+  email_password:
+    type: secret-input
+    required: true
+    label:
+      en_US: Email Password
+      zh_Hans: 邮件密码
+      pt_BR: Senha do E-mail
+      ja_JP: メールパスワード
+    placeholder:
+      en_US: Enter your email password or app password
+      zh_Hans: 输入您的邮件密码或应用密码
+      pt_BR: Digite sua senha de e-mail ou senha do aplicativo
+      ja_JP: メールパスワードまたはアプリパスワードを入力してください
+    help:
+      en_US: Email password or app-specific password for SMTP authentication
+      zh_Hans: 用于SMTP认证的邮件密码或应用专用密码
+      pt_BR: Senha de e-mail ou senha específica do aplicativo para autenticação SMTP
+      ja_JP: SMTP認証用のメールパスワードまたはアプリ固有のパスワード
+  encrypt_method:
+    type: select
+    required: true
+    label:
+      en_US: Encryption Method
+      zh_Hans: 加密方式
+      pt_BR: Método de Criptografia
+      ja_JP: 暗号化方式
+    help:
+      en_US: SMTP server encryption method
+      zh_Hans: SMTP服务器加密方式
+      pt_BR: Método de criptografia do servidor SMTP
+      ja_JP: SMTPサーバーの暗号化方式
+    options:
+      - label:
+          en_US: NONE (No encryption)
+          zh_Hans: 无加密
+          pt_BR: NENHUM (Sem criptografia)
+          ja_JP: なし（暗号化なし）
+        value: NONE
+      - label:
+          en_US: SSL
+          zh_Hans: SSL加密
+          pt_BR: SSL
+          ja_JP: SSL
+        value: SSL
+      - label:
+          en_US: START TLS
+          zh_Hans: START TLS加密
+          pt_BR: START TLS
+          ja_JP: START TLS
+        value: TLS
+  sender_address:
+    type: text-input
+    required: false
+    label:
+      en_US: Sender Address
+      zh_Hans: 发件人地址
+      pt_BR: Endereço do Remetente
+      ja_JP: 送信者アドレス
+    placeholder:
+      en_US: sender@example.com
+      zh_Hans: sender@example.com
+      pt_BR: sender@example.com
+      ja_JP: sender@example.com
+    help:
+      en_US: The designated sender address if different from email account. Required for AWS SES or custom sender addresses.
+      zh_Hans: 如果与邮件账号不同，指定的发件人地址。AWS SES或自定义发件人地址时需要。
+      pt_BR: O endereço do remetente designado se diferente da conta de e-mail. Necessário para AWS SES ou endereços de remetente personalizados.
+      ja_JP: メールアカウントと異なる場合の指定送信者アドレス。AWS SESやカスタム送信者アドレスに必要です。
+tools:
+  - tools/send_mail.yaml
+  - tools/send_mail_batch.yaml
+extra:
+  python:
+    source: provider/email-html-pro.py

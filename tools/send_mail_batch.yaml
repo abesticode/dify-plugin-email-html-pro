@@ -1,0 +1,156 @@
+identity:
+  name: send_mail_batch
+  author: abesticode
+  label:
+    en_US: Send Batch Email
+    zh_Hans: 批量发送邮件
+    pt_BR: Enviar E-mail em Lote
+    ja_JP: 一括メール送信
+description:
+  human:
+    en_US: Send professional HTML emails to multiple recipients with support for attachments, HTML content, and raw HTML templates
+    zh_Hans: 向多个收件人发送专业HTML邮件，支持附件、HTML内容和原始HTML模板
+    pt_BR: Envie e-mails HTML profissionais para múltiplos destinatários com suporte para anexos, conteúdo HTML e modelos HTML brutos
+    ja_JP: 添付ファイル、HTMLコンテンツ、生のHTMLテンプレートをサポートして、複数の受信者にプロフェッショナルなHTMLメールを送信します
+  llm: Send professional HTML emails to multiple recipients at once. Supports plain text, markdown-to-HTML conversion, or raw HTML content. Can include file attachments, CC/BCC recipients, and custom reply-to addresses. Ideal for newsletters, announcements, and batch notifications.
+parameters:
+  - name: send_to
+    type: string
+    required: true
+    label:
+      en_US: Recipient Emails (JSON list)
+      zh_Hans: 收件人邮箱（JSON列表）
+      pt_BR: E-mails dos Destinatários (lista JSON)
+      ja_JP: 受信者メール（JSONリスト）
+    human_description:
+      en_US: A JSON array of recipient email addresses
+      zh_Hans: 收件人邮箱地址的JSON数组
+      pt_BR: Uma matriz JSON de endereços de e-mail dos destinatários
+      ja_JP: 受信者メールアドレスのJSON配列
+    llm_description: A JSON array of recipient email addresses. Example format ["email1@example.com", "email2@example.com"]. All recipients will receive the same email.
+    form: llm
+  - name: subject
+    type: string
+    required: true
+    label:
+      en_US: Email Subject
+      zh_Hans: 邮件主题
+      pt_BR: Assunto do E-mail
+      ja_JP: メール件名
+    human_description:
+      en_US: The subject line of the email
+      zh_Hans: 邮件的主题行
+      pt_BR: A linha de assunto do e-mail
+      ja_JP: メールの件名
+    llm_description: The subject line of the email. Should be concise and descriptive.
+    form: llm
+  - name: email_content
+    type: string
+    required: true
+    label:
+      en_US: Email Content
+      zh_Hans: 邮件内容
+      pt_BR: Conteúdo do E-mail
+      ja_JP: メール内容
+    human_description:
+      en_US: The body content of the email (plain text, markdown, or HTML)
+      zh_Hans: 邮件的正文内容（纯文本、Markdown或HTML）
+      pt_BR: O conteúdo do corpo do e-mail (texto simples, markdown ou HTML)
+      ja_JP: メールの本文内容（プレーンテキスト、Markdown、またはHTML）
+    llm_description: The main body content of the email. Can be plain text, markdown (if convert_to_html is enabled), or raw HTML (if is_raw_html is enabled).
+    form: llm
+  - name: convert_to_html
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Convert to HTML
+      zh_Hans: 转换为HTML
+      pt_BR: Converter para HTML
+      ja_JP: HTMLに変換
+    human_description:
+      en_US: Convert markdown content to HTML format
+      zh_Hans: 将Markdown内容转换为HTML格式
+      pt_BR: Converter conteúdo markdown para formato HTML
+      ja_JP: MarkdownコンテンツをHTML形式に変換します
+    llm_description: Whether to convert the email content from markdown to HTML format. Supports headers, lists, tables, links, images, and inline formatting.
+    form: form
+  - name: is_raw_html
+    type: boolean
+    required: false
+    default: false
+    label:
+      en_US: Send as Raw HTML
+      zh_Hans: 作为原始HTML发送
+      pt_BR: Enviar como HTML Bruto
+      ja_JP: 生HTMLとして送信
+    human_description:
+      en_US: Send email content as raw HTML without any processing (ignores Convert to HTML option)
+      zh_Hans: 将邮件内容作为原始HTML发送，不进行任何处理（忽略转换为HTML选项）
+      pt_BR: Enviar conteúdo do e-mail como HTML bruto sem nenhum processamento (ignora a opção Converter para HTML)
+      ja_JP: メール内容を処理せずに生のHTMLとして送信します（HTMLに変換オプションを無視）
+    llm_description: Whether to send the email content as raw HTML without any markdown conversion or processing. Use this when you have a pre-built HTML template.
+    form: form
+  - name: reply_to
+    type: string
+    required: false
+    label:
+      en_US: Reply-To Address
+      zh_Hans: 回复地址
+      pt_BR: Endereço de Resposta
+      ja_JP: 返信先アドレス
+    human_description:
+      en_US: Custom reply-to email address
+      zh_Hans: 自定义回复邮件地址
+      pt_BR: Endereço de e-mail personalizado para resposta
+      ja_JP: カスタム返信先メールアドレス
+    llm_description: An optional reply-to email address. When recipients reply to the email, their response will be sent to this address instead of the sender.
+    form: llm
+  - name: cc
+    type: string
+    required: false
+    label:
+      en_US: CC Recipients (JSON list)
+      zh_Hans: 抄送收件人（JSON列表）
+      pt_BR: Destinatários CC (lista JSON)
+      ja_JP: CCの受信者（JSONリスト）
+    human_description:
+      en_US: Carbon copy recipients as JSON array
+      zh_Hans: 抄送收件人，JSON数组格式
+      pt_BR: Destinatários em cópia carbono como array JSON
+      ja_JP: カーボンコピーの受信者（JSON配列）
+    llm_description: A JSON array of email addresses for carbon copy recipients. Example format ["email1@example.com", "email2@example.com"]
+    form: llm
+  - name: bcc
+    type: string
+    required: false
+    label:
+      en_US: BCC Recipients (JSON list)
+      zh_Hans: 密送收件人（JSON列表）
+      pt_BR: Destinatários BCC (lista JSON)
+      ja_JP: BCCの受信者（JSONリスト）
+    human_description:
+      en_US: Blind carbon copy recipients as JSON array
+      zh_Hans: 密送收件人，JSON数组格式
+      pt_BR: Destinatários em cópia oculta como array JSON
+      ja_JP: ブラインドカーボンコピーの受信者（JSON配列）
+    llm_description: A JSON array of email addresses for blind carbon copy recipients. These recipients are hidden from other recipients. Example format ["email1@example.com", "email2@example.com"]
+    form: llm
+  - name: attachments
+    type: files
+    required: false
+    label:
+      en_US: File Attachments
+      zh_Hans: 文件附件
+      pt_BR: Anexos de Arquivo
+      ja_JP: 添付ファイル
+    human_description:
+      en_US: Files to attach to the email
+      zh_Hans: 要附加到邮件的文件
+      pt_BR: Arquivos para anexar ao e-mail
+      ja_JP: メールに添付するファイル
+    llm_description: Files to attach to the email. Supports multiple file attachments of any type.
+    form: llm
+extra:
+  python:
+    source: tools/send_mail_batch.py

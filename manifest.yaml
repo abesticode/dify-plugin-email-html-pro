@@ -1,0 +1,39 @@
+version: 0.0.1
+type: plugin
+author: abesticode
+name: email_html_pro
+label:
+  en_US: Email HTML Pro
+  ja_JP: Email HTML Pro
+  zh_Hans: Email HTML Pro
+  pt_BR: Email HTML Pro
+description:
+  en_US: Send professional HTML emails with full template support. Features raw HTML rendering (perfect for custom templates), markdown-to-HTML conversion, AWS SES/Gmail/SMTP compatibility, file attachments, CC/BCC, and batch sending. Ideal for marketing emails, transactional notifications, and business communications.
+  ja_JP: Send professional HTML emails with full template support. Features raw HTML rendering (perfect for custom templates), markdown-to-HTML conversion, AWS SES/Gmail/SMTP compatibility, file attachments, CC/BCC, and batch sending. Ideal for marketing emails, transactional notifications, and business communications.
+  zh_Hans: Send professional HTML emails with full template support. Features raw HTML rendering (perfect for custom templates), markdown-to-HTML conversion, AWS SES/Gmail/SMTP compatibility, file attachments, CC/BCC, and batch sending. Ideal for marketing emails, transactional notifications, and business communications.
+  pt_BR: Send professional HTML emails with full template support. Features raw HTML rendering (perfect for custom templates), markdown-to-HTML conversion, AWS SES/Gmail/SMTP compatibility, file attachments, CC/BCC, and batch sending. Ideal for marketing emails, transactional notifications, and business communications.
+icon: icon.svg
+icon_dark: icon-dark.svg
+tags:
+  - utilities
+resource:
+  memory: 268435456
+  permission:
+    tool:
+      enabled: true
+plugins:
+  tools:
+    - provider/email-html-pro.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: null
+created_at: 2025-12-24T14:33:43.5843007+07:00
+privacy: PRIVACY.md
+verified: false
