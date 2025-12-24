@@ -1,12 +1,12 @@
+# Email HTML Pro
+
 <p align="center">
   <img src="_assets/icon.svg" alt="Email HTML Pro" width="80" height="80">
 </p>
 
-# Email HTML Pro
-
 **Author:** abesticode  
 **Version:** 0.0.1  
-**Type:** Tool Plugin
+**Type:** Tool Plugin  
 **Repo:** https://github.com/abesticode/dify-plugin-email-html-pro
 
 ## Description
