@@ -1,7 +1,7 @@
 # Email HTML Pro
 
 <p align="center">
-  <img src="_assets/icon.svg" alt="Email HTML Pro" width="80" height="80">
+  <img src="_assets/icon.svg" alt="Email HTML Pro" width="120" />
 </p>
 
 **Author:** abesticode  
