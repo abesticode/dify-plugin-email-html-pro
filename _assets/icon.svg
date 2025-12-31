@@ -1,4 +1,50 @@
 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    /* Envelope floating animation */
+    .envelope {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    /* HTML brackets typing animation */
+    .bracket-left {
+      stroke-dasharray: 20;
+      stroke-dashoffset: 20;
+      animation: typeIn 3s ease-in-out infinite;
+    }
+    .slash {
+      stroke-dasharray: 10;
+      stroke-dashoffset: 10;
+      animation: typeIn 3s ease-in-out infinite;
+      animation-delay: 0.5s;
+    }
+    .bracket-right {
+      stroke-dasharray: 20;
+      stroke-dashoffset: 20;
+      animation: typeIn 3s ease-in-out infinite;
+      animation-delay: 1s;
+    }
+    
+    /* Shine pulse */
+    .shine {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+    }
+    
+    @keyframes typeIn {
+      0%, 100% { stroke-dashoffset: 20; opacity: 0.5; }
+      50% { stroke-dashoffset: 0; opacity: 1; }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+  
   <defs>
     <linearGradient id="bgGradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-color="#1a73e8"/>
@@ -13,22 +59,25 @@
   <!-- Background -->
   <rect width="40" height="40" rx="8" fill="url(#bgGradient)"/>
   
-  <!-- Envelope body -->
-  <path d="M6 14C6 12.8954 6.89543 12 8 12H32C33.1046 12 34 12.8954 34 14V28C34 29.1046 33.1046 30 32 30H8C6.89543 30 6 29.1046 6 28V14Z" fill="url(#envelopeGradient)"/>
-  
-  <!-- Envelope flap -->
-  <path d="M6 14L20 22L34 14" stroke="#1a73e8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-  
-  <!-- HTML brackets </> -->
-  <g transform="translate(12, 17)">
-    <!-- < bracket -->
-    <path d="M4 6L0 3L4 0" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-    <!-- / slash -->
-    <path d="M10 0L6 6" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <!-- > bracket -->
-    <path d="M12 0L16 3L12 6" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <!-- Envelope group with float animation -->
+  <g class="envelope">
+    <!-- Envelope body -->
+    <path d="M6 14C6 12.8954 6.89543 12 8 12H32C33.1046 12 34 12.8954 34 14V28C34 29.1046 33.1046 30 32 30H8C6.89543 30 6 29.1046 6 28V14Z" fill="url(#envelopeGradient)"/>
+    
+    <!-- Envelope flap -->
+    <path d="M6 14L20 22L34 14" stroke="#1a73e8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    
+    <!-- HTML brackets </> with typing animation -->
+    <g transform="translate(12, 17)">
+      <!-- < bracket -->
+      <path class="bracket-left" d="M4 6L0 3L4 0" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      <!-- / slash -->
+      <path class="slash" d="M10 0L6 6" stroke="#1a73e8" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <!-- > bracket -->
+      <path class="bracket-right" d="M12 0L16 3L12 6" stroke="#7c3aed" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </g>
+    
+    <!-- Subtle shine effect -->
+    <path class="shine" d="M6 14C6 12.8954 6.89543 12 8 12H32C33.1046 12 34 12.8954 34 14L20 22L6 14Z" fill="white" fill-opacity="0.3"/>
   </g>
-  
-  <!-- Subtle shine effect -->
-  <path d="M6 14C6 12.8954 6.89543 12 8 12H32C33.1046 12 34 12.8954 34 14L20 22L6 14Z" fill="white" fill-opacity="0.3"/>
 </svg>

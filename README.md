@@ -4,8 +4,8 @@
   <img src="_assets/icon.svg" alt="Email HTML Pro" width="120" />
 </p>
 
-**Author:** abesticode  
-**Version:** 0.0.1  
+**Author:** [abesticode](https://github.com/abesticode)  
+**Version:** 0.0.2  
 **Type:** Tool Plugin  
 **Repo:** https://github.com/abesticode/dify-plugin-email-html-pro
 
@@ -156,3 +156,15 @@ Contributions are welcome! Please submit issues and pull requests on GitHub.
 ## License
 
 MIT License
+
+## Changelog
+
+### v0.0.1
+- Initial release
+- Send Email and Send Batch Email tools
+- Raw HTML and Markdown to HTML support
+- File attachments, CC/BCC support
+
+### v0.0.2
+- Added animated SVG icon with floating envelope and typing HTML brackets effect
+- Updated documentation

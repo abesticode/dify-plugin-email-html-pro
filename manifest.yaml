@@ -1,4 +1,4 @@
-version: 0.0.1
+version: 0.0.2
 type: plugin
 author: abesticode
 name: email_html_pro
@@ -25,7 +25,7 @@ plugins:
   tools:
     - provider/email-html-pro.yaml
 meta:
-  version: 0.0.1
+  version: 0.0.2
   arch:
     - amd64
     - arm64
