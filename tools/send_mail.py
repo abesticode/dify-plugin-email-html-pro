@@ -35,13 +35,20 @@ class SendMailTool(Tool):
 
             
         if not sender:
-            yield self.create_text_message("please input sender")
+            yield self.create_text_message("please input email account (SMTP username)")
             return
-            
-        if not email_rgx.match(sender):
-            yield self.create_text_message("Invalid parameter userid, the sender is not a mailbox")
+        
+        # Get sender address - this must be a valid email for the "From" header
+        sender_address = self.runtime.credentials.get("sender_address", "") or sender
+        
+        # Only validate sender_address if it's supposed to be an email
+        # For AWS SES and similar services, sender_address must be a verified email
+        if sender_address and not email_rgx.match(sender_address):
+            yield self.create_text_message(
+                f"Invalid sender address '{sender_address}'. The sender address must be a valid email format. "
+                f"For AWS SES, please set the 'Sender Address' field in credentials to your verified email."
+            )
             return
-            
 
         receiver_email = tool_parameters["send_to"]
         if not receiver_email:
@@ -126,8 +133,7 @@ class SendMailTool(Tool):
         if attachments is not None and not isinstance(attachments, list):
             attachments = [attachments]
         
-        # Get sender address (use credentials' sender_address if available, otherwise use email_account)
-        sender_address = self.runtime.credentials.get("sender_address", "") or sender
+        # Note: sender_address is already retrieved and validated at the beginning of this method
         
         # Get reply-to address if provided
         reply_to = tool_parameters.get("reply_to", None)
