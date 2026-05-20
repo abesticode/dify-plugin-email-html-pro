@@ -14,8 +14,8 @@ class SendEmailToolParameters(BaseModel):
     smtp_server: str
     smtp_port: int
 
-    email_account: str
-    email_password: str
+    email_account: Optional[str] = None
+    email_password: Optional[str] = None
     sender_address: str
 
     sender_to: List[str]
@@ -98,13 +98,17 @@ def send_mail(params: SendEmailToolParameters) -> Dict[str, Tuple[int, bytes]]:
     try:
         if params.encrypt_method.upper() == "SSL":
             with smtplib.SMTP_SSL(params.smtp_server, params.smtp_port, context=ctx, timeout=timeout) as server:
-                server.login(params.email_account, params.email_password)
+                # Only login if credentials are provided
+                if params.email_account and params.email_password:
+                    server.login(params.email_account, params.email_password)
                 return server.sendmail(params.sender_address, all_recipients, msg.as_string())
         else:  # NONE or TLS
             with smtplib.SMTP(params.smtp_server, params.smtp_port, timeout=timeout) as server:
                 if params.encrypt_method.upper() == "TLS":
                     server.starttls(context=ctx)
-                server.login(params.email_account, params.email_password)
+                # Only login if credentials are provided
+                if params.email_account and params.email_password:
+                    server.login(params.email_account, params.email_password)
                 return server.sendmail(params.sender_address, all_recipients, msg.as_string())
     except Exception as e:
         logging.exception(f"Send email failed: {str(e)}")

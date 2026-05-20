@@ -33,20 +33,21 @@ class SendMailBatchTool(Tool):
             yield self.create_text_message("Invalid parameter smtp_port(should be int)")
             return
 
-            
-        if not sender:
-            yield self.create_text_message("please input email account (SMTP username)")
-            return
-        
         # Get sender address - this must be a valid email for the "From" header
         sender_address = self.runtime.credentials.get("sender_address", "") or sender
         
-        # Only validate sender_address if it's supposed to be an email
-        # For AWS SES and similar services, sender_address must be a verified email
-        if sender_address and not email_rgx.match(sender_address):
+        # sender_address is required (either from sender_address field or email_account)
+        if not sender_address:
             yield self.create_text_message(
-                f"Invalid sender address '{sender_address}'. The sender address must be a valid email format. "
-                f"For AWS SES, please set the 'Sender Address' field in credentials to your verified email."
+                "Sender Address is required when Email Account is not provided. "
+                "Please set the 'Sender Address' field in credentials."
+            )
+            return
+        
+        # Validate sender_address format
+        if not email_rgx.match(sender_address):
+            yield self.create_text_message(
+                f"Invalid sender address '{sender_address}'. The sender address must be a valid email format."
             )
             return
 

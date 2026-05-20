@@ -53,7 +53,7 @@ credentials_for_provider:
       ja_JP: SMTPサーバーポート（一般的なポートは25、465、587）
   email_account:
     type: text-input
-    required: true
+    required: false
     label:
       en_US: Email Account
       zh_Hans: 邮件账号
@@ -65,13 +65,13 @@ credentials_for_provider:
       pt_BR: your-email@example.com
       ja_JP: your-email@example.com
     help:
-      en_US: Email account used for SMTP authentication
-      zh_Hans: 用于SMTP认证的邮件账号
-      pt_BR: Conta de e-mail usada para autenticação SMTP
-      ja_JP: SMTP認証に使用するメールアカウント
+      en_US: Email account for SMTP authentication. Leave empty for relay servers that do not require authentication.
+      zh_Hans: 用于SMTP认证的邮件账号。对于不需要认证的中继服务器，请留空。
+      pt_BR: Conta de e-mail para autenticação SMTP. Deixe vazio para servidores de retransmissão que não requerem autenticação.
+      ja_JP: SMTP認証に使用するメールアカウント。認証不要のリレーサーバーの場合は空にしてください。
   email_password:
     type: secret-input
-    required: true
+    required: false
     label:
       en_US: Email Password
       zh_Hans: 邮件密码
@@ -83,10 +83,10 @@ credentials_for_provider:
       pt_BR: Digite sua senha de e-mail ou senha do aplicativo
       ja_JP: メールパスワードまたはアプリパスワードを入力してください
     help:
-      en_US: Email password or app-specific password for SMTP authentication
-      zh_Hans: 用于SMTP认证的邮件密码或应用专用密码
-      pt_BR: Senha de e-mail ou senha específica do aplicativo para autenticação SMTP
-      ja_JP: SMTP認証用のメールパスワードまたはアプリ固有のパスワード
+      en_US: Email password or app-specific password for SMTP authentication. Leave empty for relay servers that do not require authentication.
+      zh_Hans: 用于SMTP认证的邮件密码或应用专用密码。对于不需要认证的中继服务器，请留空。
+      pt_BR: Senha de e-mail ou senha específica do aplicativo para autenticação SMTP. Deixe vazio para servidores de retransmissão que não requerem autenticação.
+      ja_JP: SMTP認証用のメールパスワードまたはアプリ固有のパスワード。認証不要のリレーサーバーの場合は空にしてください。
   encrypt_method:
     type: select
     required: true
@@ -133,10 +133,10 @@ credentials_for_provider:
       pt_BR: sender@example.com
       ja_JP: sender@example.com
     help:
-      en_US: The designated sender address if different from email account. Required for AWS SES or custom sender addresses.
-      zh_Hans: 如果与邮件账号不同，指定的发件人地址。AWS SES或自定义发件人地址时需要。
-      pt_BR: O endereço do remetente designado se diferente da conta de e-mail. Necessário para AWS SES ou endereços de remetente personalizados.
-      ja_JP: メールアカウントと異なる場合の指定送信者アドレス。AWS SESやカスタム送信者アドレスに必要です。
+      en_US: The designated sender address if different from email account. Required when Email Account is not provided (e.g., relay servers without authentication).
+      zh_Hans: 如果与邮件账号不同，指定的发件人地址。当未提供邮件账号时必填（例如：不需要认证的中继服务器）。
+      pt_BR: O endereço do remetente designado se diferente da conta de e-mail. Obrigatório quando a Conta de E-mail não é fornecida (ex., servidores de retransmissão sem autenticação).
+      ja_JP: メールアカウントと異なる場合の指定送信者アドレス。メールアカウントが未入力の場合は必須です（例：認証不要のリレーサーバー）。
 tools:
   - tools/send_mail.yaml
   - tools/send_mail_batch.yaml
