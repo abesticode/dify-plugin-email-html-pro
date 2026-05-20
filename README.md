@@ -5,7 +5,7 @@
 </p>
 
 **Author:** [abesticode](https://github.com/abesticode)  
-**Version:** 0.0.2  
+**Version:** 0.0.3  
 **Type:** Tool Plugin  
 **Repo:** https://github.com/abesticode/dify-plugin-email-html-pro
 
@@ -16,6 +16,7 @@ Email HTML Pro is a professional Dify plugin for sending HTML emails via SMTP wi
 ## Features
 
 - 📧 **SMTP Support**: Compatible with Gmail, AWS SES, and any standard SMTP server
+- 🔓 **SMTP Relay Support**: Works with unauthenticated relay servers (e.g., internal company relays)
 - 🎨 **Raw HTML Templates**: Send pre-built HTML templates without modification
 - 📝 **Markdown to HTML**: Automatically convert markdown content to beautiful HTML emails
 - 📎 **File Attachments**: Attach multiple files to your emails
@@ -39,10 +40,10 @@ Configure the following credentials in Dify:
 |-------|-------------|----------|
 | SMTP Server | Your SMTP server address (e.g., smtp.gmail.com) | ✅ |
 | SMTP Port | SMTP port (25, 465, or 587) | ✅ |
-| Email Account | Your email account for authentication | ✅ |
-| Email Password | Your email password or app password | ✅ |
+| Email Account | Your email account for SMTP authentication. Leave empty for relay servers without auth. | ❌ |
+| Email Password | Your email password or app password. Leave empty for relay servers without auth. | ❌ |
 | Encryption Method | NONE, SSL, or TLS | ✅ |
-| Sender Address | Custom sender address (optional, for AWS SES) | ❌ |
+| Sender Address | Custom sender address. **Required** when Email Account is not provided. | ❌ |
 
 ### Common SMTP Configurations
 
@@ -57,6 +58,15 @@ Configure the following credentials in Dify:
 - Port: `587`
 - Encryption: `TLS`
 - Note: Use IAM SMTP credentials
+
+**SMTP Relay (No Authentication):**
+- Server: Your relay server address (e.g., `relay.company.co.id`)
+- Port: `25`
+- Encryption: `NONE`
+- Email Account: _(leave empty)_
+- Email Password: _(leave empty)_
+- Sender Address: `no-reply@company.co.id` **(required)**
+- Note: Common for internal company relay servers
 
 ## Tools
 
@@ -164,6 +174,12 @@ MIT License
 - Send Email and Send Batch Email tools
 - Raw HTML and Markdown to HTML support
 - File attachments, CC/BCC support
+
+### v0.0.3
+- Added support for SMTP relay servers without authentication
+- Email Account and Email Password are now optional credentials
+- Sender Address is required when Email Account is not provided
+- Provider validation uses connection test (EHLO) for relay servers instead of sending test email
 
 ### v0.0.2
 - Added animated SVG icon with floating envelope and typing HTML brackets effect
