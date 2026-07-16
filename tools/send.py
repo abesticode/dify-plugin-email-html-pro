@@ -1,6 +1,7 @@
 import smtplib
 import ssl
 import logging
+from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
@@ -8,6 +9,8 @@ from typing import List, Optional, Dict, Tuple
 
 from pydantic import BaseModel
 from dify_plugin.file.file import File
+
+from tools.smtp_errors import SMTPSendError, translate_smtp_error
 
 
 class SendEmailToolParameters(BaseModel):
@@ -35,6 +38,13 @@ class SendEmailToolParameters(BaseModel):
 
 
 def send_mail(params: SendEmailToolParameters) -> Dict[str, Tuple[int, bytes]]:
+    """Send an email via SMTP.
+
+    Raises SMTPSendError (with the real SMTP code/response) if the
+    connection, authentication, or send command fails. The plugin must
+    never report "sent successfully" unless the server actually accepted
+    both the AUTH and the send command.
+    """
     timeout = 60
 
     # Create multipart message with mixed type to support attachments
@@ -110,7 +120,23 @@ def send_mail(params: SendEmailToolParameters) -> Dict[str, Tuple[int, bytes]]:
                 if params.email_account and params.email_password:
                     server.login(params.email_account, params.email_password)
                 return server.sendmail(params.sender_address, all_recipients, msg.as_string())
+    except (smtplib.SMTPException, ssl.SSLError, OSError) as e:
+        smtp_error = translate_smtp_error(e)
+        logging.error(
+            "SMTP send failed | server=%s account=%s category=%s code=%s response=%s time=%s",
+            params.smtp_server,
+            params.email_account or params.sender_address,
+            smtp_error.category,
+            smtp_error.code,
+            smtp_error.response,
+            datetime.now(timezone.utc).isoformat(),
+        )
+        # Do NOT swallow the failure as a false "success" - surface the real
+        # SMTP error (code + message) to the caller.
+        raise smtp_error from e
     except Exception as e:
-        logging.exception(f"Send email failed: {str(e)}")
-        # Return an empty dictionary to match the expected return type
-        return {}
+        # Any other unexpected error (e.g. a transport-level failure not
+        # covered above) must still be reported as a failure, never as a
+        # silent/false success.
+        logging.exception("Unexpected error while sending email via SMTP")
+        raise SMTPSendError(f"Unexpected error while sending email: {e}", category="unknown") from e

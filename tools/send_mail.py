@@ -8,6 +8,7 @@ from dify_plugin.file.file import File
 from tools.markdown_utils import convert_markdown_to_html
 
 from tools.send import SendEmailToolParameters, send_mail
+from tools.smtp_errors import SMTPSendError
 
 
 class SendMailTool(Tool):
@@ -160,7 +161,11 @@ class SendMailTool(Tool):
         )
         
         # Send the email and get result
-        result = send_mail(send_email_params)
+        try:
+            result = send_mail(send_email_params)
+        except SMTPSendError as e:
+            yield self.create_text_message(f"Email sending failed: {e}")
+            return
         
         # Process result
         if result:
