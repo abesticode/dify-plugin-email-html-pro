@@ -1,6 +1,6 @@
-version: 0.0.3
+version: 0.0.4
 type: plugin
-author: abesticode
+author: erbanku
 name: email_html_pro
 label:
   en_US: Email HTML Pro
